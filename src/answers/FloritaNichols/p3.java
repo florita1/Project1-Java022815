@@ -1,26 +1,34 @@
+//import java.awt.*;
 import java.io.File;
-//import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-//import java.nio.CharBuffer;
 
 
 
 public class p3 {
 	
 	public static void main(String[] args) {
+		// Getting data from file
 		int[][] data = getData();
+		
+		// Calculating Benfords probabilities from data
 		float[] dataGroupA = calculateProb(data[0]);
 		float[] dataGroupB = calculateProb(data[1]);
-		for( float c : dataGroupA){
-			System.out.print(c + " ");
-		}
 		
+		//Print statements to display probabilities
+		
+		System.out.println("Benfords P(d): 30.1%, 17.6%, 12.5%, 9.7%, 7.9%, 6.7%, 5.8%, 5.1%, 4.6%");
+		System.out.print("Data1 P(d): ");
+		for( float c : dataGroupA){
+			System.out.print(c + "% ");
+		}
 		System.out.println("");
+		System.out.print("Data2 P(d): ");
 		
 		for( float c : dataGroupB){
-			System.out.print(c + " ");
+			System.out.print(c + "% ");
 		}
+		
 		
 	}
 
@@ -68,18 +76,14 @@ public class p3 {
 
 		for(int x : dataGroup){
 			if(x <= 9){
-				//System.out.print(x + " ");
 				values[x-1] += 1;
-				//System.out.println(values[x-1]);
 			}
 		}
 
-		//System.out.println(values[5]);
 
 		float[] prob = new float[9];
 
 		for(int y = 0; y <= 8; y++){
-			//System.out.println(values[y]);
 			prob[y] = (float) ((values[y]/1000.0) * 100);
 		}
 
@@ -89,11 +93,28 @@ public class p3 {
 		
 		return prob;
 
-		// method for finding the probability using WIKI equation
-		// method to graph probability on bar graph
-		// possible step: add interface that asks client if they would like to see the
-		//	probability displayed for the data set.
+		
 	}
+	
+	/*public void paint(Graphics g, float[] data) {
+		Font font = new Font("Arial",Font.BOLD,15);
+		g.setFont(font);
+		for(int i  = 0; i < 9; i ++)
+		{
+			g.setColor(Color.BLUE);
+			g.drawString(Integer.toString(i), 20, i * 50 + 30);
+			g.setColor(Color.RED);
+			g.fillRect(70, i * 50 + 10, 20, (int) data[i]);
+			g.drawString(Float.toString(data[i]) + "%", 180, i * 50 + 35);
+		}
+
+		String msg = "Bar Chart from Year 2001 - 2005";
+		g.setColor(Color.darkGray);
+
+		font = new Font("Arial",Font.BOLD,20);
+		g.setFont(font);
+		g.drawString(msg, 50, 300);
+	}*/
 
 
 }
