@@ -7,7 +7,8 @@ public class ConsecutiveP7b {
 
 	public static void main(String[] args) throws IOException {
 		int[] values = openFile("primearray.txt");
-		fillArray(values, 0,4);
+		fillArray(values, 0, 4);
+		fillArray(values, 0, 9);
 		
 	}
 	
@@ -38,7 +39,7 @@ public class ConsecutiveP7b {
 		//	to make a consecutive list from the low index to the high index
 		int missingValues = valuesInBetween - elementsInSlice;
 		
-		System.out.print(missingValues);		
+		System.out.println(missingValues);		
 		
 	}
 
