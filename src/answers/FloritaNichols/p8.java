@@ -26,6 +26,7 @@ public class p8 {
 		long diff = time2.getTime() - time1.getTime();
 		long diffMinutes = diff / (60 * 1000) % 60;
 		System.out.println("Difference is : " + diffMinutes + "minutes");
+		user_input.close();
 	      
 	}
 
