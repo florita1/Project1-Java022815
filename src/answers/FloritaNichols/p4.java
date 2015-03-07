@@ -12,9 +12,9 @@ public class p4 {
 
 		writeFile("p4aNames.txt", sortedNames);
 
-		int[] nameValues = nameValue();
+		Integer[] nameValues = nameValue();
 
-		//writeFile("p4bNames.txt", nameValues);
+		writeFile("p4bNames.txt", nameValues);
 
 		int totalNameScore = 0;
 		for (int i = 0; i < nameValues.length; i++){
@@ -40,9 +40,9 @@ public class p4 {
 		return names;
 	}
 
-	public static <E> void writeFile(String filename, E[] fileContent) throws IOException {
+	public static < E > void writeFile(String filename, E[] fileContent) throws IOException {
 		// creates the file
-		File file2 = new File("p4aNames.txt");
+		File file2 = new File(filename);
 		file2.createNewFile();
 		// creates a FileWriter Object
 		FileWriter writer = new FileWriter(file2); 
@@ -55,9 +55,9 @@ public class p4 {
 
 	}
 
-	public static int[] nameValue() throws IOException{
+	public static Integer[] nameValue() throws IOException{
 		String[] names = openFile("p4aNames.txt");
-		int[] nameValues = new int[names.length];
+		Integer[] nameValues = new Integer[names.length];
 		//System.out.print(names[3]);
 		for(int name = 0; name<= (names.length-1); name++){ //names.length
 			int letterVal = 0;
