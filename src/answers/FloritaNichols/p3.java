@@ -28,6 +28,9 @@ public class p3 {
 		for( float c : dataGroupB){
 			System.out.print(c + "% ");
 		}
+		System.out.println(" ");
+		verifyData(dataGroupA, "Data1 ");
+		verifyData(dataGroupB, "Data2 ");
 		
 		
 	}
@@ -96,25 +99,20 @@ public class p3 {
 		
 	}
 	
-	/*public void paint(Graphics g, float[] data) {
-		Font font = new Font("Arial",Font.BOLD,15);
-		g.setFont(font);
-		for(int i  = 0; i < 9; i ++)
-		{
-			g.setColor(Color.BLUE);
-			g.drawString(Integer.toString(i), 20, i * 50 + 30);
-			g.setColor(Color.RED);
-			g.fillRect(70, i * 50 + 10, 20, (int) data[i]);
-			g.drawString(Float.toString(data[i]) + "%", 180, i * 50 + 35);
+	public static void verifyData(float[] data, String dataGroup){
+		float max = data[data.length-1];
+		String message = "";
+		for(int x = data.length-1; x >= 0; x--){
+			if(data[x] >= max){
+				max = data[x];
+				 message = "does follow Benford's Law. ";
+			} else {
+				 message = "does not follow Benford's Law. ";
+				 break;
+			}
+			
 		}
-
-		String msg = "Bar Chart from Year 2001 - 2005";
-		g.setColor(Color.darkGray);
-
-		font = new Font("Arial",Font.BOLD,20);
-		g.setFont(font);
-		g.drawString(msg, 50, 300);
-	}*/
-
+		System.out.println(dataGroup+message);
+	}
 
 }
