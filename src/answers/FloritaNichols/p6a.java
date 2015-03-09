@@ -18,11 +18,13 @@ public class p6a {
 		//System.out.println(playerCards.get(0));
 		//System.out.println(playerCards.get(1));
 		
-		String[] testHand = {"6C","6D","TC","TH","QC"};
+		String[] testHand = {"3D","4H","5S","6H","7C"};
 		checkPairs(testHand);
 		checkSuit(testHand);
 		
 		String fullMessage = messageFlush + subMessage;
+		if(fullMessage.equals(" pair pair")) fullMessage = "two pair";
+		if(fullMessage.equals("three of a kind pair")) fullMessage = "full house";
 		System.out.println("This hand has a " + fullMessage);
 
 	}
@@ -80,20 +82,33 @@ public class p6a {
 			}
 		}
 		System.out.println("Cards in Deck: "+cardCount.values());
-		int flushCount = 0;
-		for(int cc : cardCount.values()){
-			if(cc == 1)
-				flushCount += 1;
-			if(cc == 3 && cc == 2)
-				subMessage = "full house";
-			if(cc  == 2)
-				subMessage += " pair";
-			if(cc == 3)
-				subMessage = "three of a kind";
-			if(cc == 4)
-				subMessage = "four of a kind";
+		
+		if(cardCount.containsValue(4)) subMessage = "four of a kind";
+		if(cardCount.containsValue(3)) subMessage = "three of a kind";
+		if(cardCount.containsValue(2)) subMessage += " pair";
+		
+		if(cardCount.containsValue(1)) {
+			for(int v = 0; v<=12; v++) {
+				if(cardCount.get(cards[v]).equals(1)) {
+					if(cardCount.get(cards[v+1]).equals(1)) {
+						if(cardCount.get(cards[v+2]).equals(1)) {
+							if(cardCount.get(cards[v+3]).equals(1)){
+								if(cardCount.get(cards[v+4]).equals(1)){
+									messageFlush = "straight ";
+								}}}}}
+			}
 		}
-		if(flushCount == 5) messageFlush = "straight ";
+		
+		
+		String[] faces = {"A","T","J","Q","K"};
+		int royalCount = 0;
+		for(String face : faces) {
+			if(cardCount.get(face) == 1) {
+				royalCount += 1;
+			}
+		}
+		
+		if(royalCount == 5) messageFlush = "royal ";
 	}
 	
 	public static void checkSuit(String[] hand) {
@@ -116,13 +131,11 @@ public class p6a {
 				}				
 			}
 		}
+		
 		System.out.println("Suits in Deck: "+suitCount.values());
-		for(int cc : suitCount.values()){
-			if(cc  == 5){
-				Arrays.sort(hand);
-				subMessage = "flush";
-			}
-		}
+		
+		if(suitCount.containsValue(5)) subMessage = "flush";
+		
 		
 	}
 
