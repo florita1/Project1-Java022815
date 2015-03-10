@@ -15,17 +15,27 @@ public class p6a {
 		// Open file with player cards and read in player1 and player2 hands
 		List<List<String>> playerCards = openFile("src/resources/poker.txt");
 
-		//System.out.println(playerCards.get(0));
+		//System.out.println(playerCards.get(0).size());
 		//System.out.println(playerCards.get(1));
 		
-		String[] testHand = {"3D","4H","5S","6H","7C"};
+		List<String> player1 = playerCards.get(0);
+		//System.out.println(player1.get(0));
+		
+		for(int hand = 0; hand <= 5; hand++) { //playerCards.get(0).size()
+			checkPairs(player1.get(hand).split(" "));
+			checkSuit(player1.get(hand).split(" "));
+		
+		
+		/*String[] testHand = {"3D","4H","5S","6H","7C"};
 		checkPairs(testHand);
-		checkSuit(testHand);
+		checkSuit(testHand);*/
 		
 		String fullMessage = messageFlush + subMessage;
 		if(fullMessage.equals(" pair pair")) fullMessage = "two pair";
 		if(fullMessage.equals("three of a kind pair")) fullMessage = "full house";
 		System.out.println("This hand has a " + fullMessage);
+		
+		}
 
 	}
 
@@ -66,7 +76,7 @@ public class p6a {
 		//String[] player2 = {"7D","2S","5D","3S","AC"};
 
 		LinkedHashMap<String, Integer> cardCount = new LinkedHashMap<String,Integer>();
-		String[] cards = {"A","2","3","4","5","6","7","8","9","T","J","Q","K"};
+		String[] cards = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
 		for(String card:cards) {
 			cardCount.put(card, 0);
 		}
@@ -88,6 +98,7 @@ public class p6a {
 		if(cardCount.containsValue(2)) subMessage += " pair";
 		
 		if(cardCount.containsValue(1)) {
+			try {
 			for(int v = 0; v<=12; v++) {
 				if(cardCount.get(cards[v]).equals(1)) {
 					if(cardCount.get(cards[v+1]).equals(1)) {
@@ -96,6 +107,9 @@ public class p6a {
 								if(cardCount.get(cards[v+4]).equals(1)){
 									messageFlush = "straight ";
 								}}}}}
+			}
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
 			}
 		}
 		
