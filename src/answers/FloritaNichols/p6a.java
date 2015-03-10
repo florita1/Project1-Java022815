@@ -8,8 +8,7 @@ import java.util.*;
 
 public class p6a {
 	
-	public static String subMessage = "";
-	public static String messageFlush = "";
+	public static int rank = 0;
 	
 	public static void main(String[] args) throws IOException {	
 		// Open file with player cards and read in player1 and player2 hands
@@ -95,7 +94,7 @@ public class p6a {
 		
 		if(cardCount.containsValue(4)) subMessage = "four of a kind";
 		if(cardCount.containsValue(3)) subMessage = "three of a kind";
-		if(cardCount.containsValue(2)) subMessage += " pair";
+		if(cardCount.containsValue(2)) subMessage = " pair";
 		
 		if(cardCount.containsValue(1)) {
 			try {
