@@ -9,6 +9,8 @@ import java.util.*;
 public class p6a {
 	
 	public static int rank = 0;
+	public static boolean flush = false;
+	public static boolean strait = false;
 	
 	public static void main(String[] args) throws IOException {	
 		// Open file with player cards and read in player1 and player2 hands
@@ -20,19 +22,20 @@ public class p6a {
 		List<String> player1 = playerCards.get(0);
 		//System.out.println(player1.get(0));
 		
-		for(int hand = 0; hand <= 5; hand++) { //playerCards.get(0).size()
-			checkPairs(player1.get(hand).split(" "));
-			checkSuit(player1.get(hand).split(" "));
-		
-		
-		/*String[] testHand = {"3D","4H","5S","6H","7C"};
-		checkPairs(testHand);
-		checkSuit(testHand);*/
-		
-		String fullMessage = messageFlush + subMessage;
-		if(fullMessage.equals(" pair pair")) fullMessage = "two pair";
-		if(fullMessage.equals("three of a kind pair")) fullMessage = "full house";
-		System.out.println("This hand has a " + fullMessage);
+		for(int hands = 0; hands <= 5; hands++) { //playerCards.get(0).size()
+			System.out.println(player1.get(hands));
+			rank = 0;
+			flush = false;
+			strait = false;
+			String[] hand = player1.get(hands).split(" ");
+			checkSuit(hand);
+			checkPairs(hand);
+			System.out.println("Hand rank: " + rank);
+			
+			if(rank == 0) {
+				Arrays.sort(hand);
+				System.out.println(hand[4]);
+			}
 		
 		}
 
@@ -92,9 +95,18 @@ public class p6a {
 		}
 		System.out.println("Cards in Deck: "+cardCount.values());
 		
-		if(cardCount.containsValue(4)) subMessage = "four of a kind";
-		if(cardCount.containsValue(3)) subMessage = "three of a kind";
-		if(cardCount.containsValue(2)) subMessage = " pair";
+		if(cardCount.containsValue(2) && cardCount.containsValue(3)) rank = 6;
+		if(cardCount.containsValue(4)) rank = 7;
+		if(cardCount.containsValue(3)) rank = 3;
+		
+		int pairCount = 0;
+		for(int pair:cardCount.values()){
+			if( pair == 2){
+				pairCount += 1;
+			}
+		}
+		if(pairCount == 1) rank = 1;
+		if(pairCount == 2) rank = 2;
 		
 		if(cardCount.containsValue(1)) {
 			try {
@@ -104,11 +116,18 @@ public class p6a {
 						if(cardCount.get(cards[v+2]).equals(1)) {
 							if(cardCount.get(cards[v+3]).equals(1)){
 								if(cardCount.get(cards[v+4]).equals(1)){
-									messageFlush = "straight ";
+									strait = true;
 								}}}}}
 			}
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
+			}
+		}
+		
+		if(strait == true) {
+			rank = 4;
+			if(flush == true){
+				rank = 8;
 			}
 		}
 		
@@ -121,7 +140,10 @@ public class p6a {
 			}
 		}
 		
-		if(royalCount == 5) messageFlush = "royal ";
+		if(royalCount == 5 && flush) {
+			// Setting rank for Royal Flush if a suit appears 5 times in checkSuit (flush is true)
+			rank = 9; 
+		}
 	}
 	
 	public static void checkSuit(String[] hand) {
@@ -147,7 +169,10 @@ public class p6a {
 		
 		System.out.println("Suits in Deck: "+suitCount.values());
 		
-		if(suitCount.containsValue(5)) subMessage = "flush";
+		if(suitCount.containsValue(5)) {
+			flush = true;
+			rank = 5;
+		}
 		
 		
 	}
