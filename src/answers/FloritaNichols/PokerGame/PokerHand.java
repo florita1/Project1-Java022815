@@ -51,7 +51,7 @@ public class PokerHand {
 	}
 	
 	private void checkStraits() {
-		String[] cards = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
+		String[] cards = {"A","2","3","4","5","6","7","8","9","T","J","Q","K","A"};
 		if(cardsinHand.containsValue(1)) {
 			try {
 			for(int v = 0; v<=12; v++) {
